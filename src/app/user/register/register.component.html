@@ -1,0 +1,82 @@
+<mat-card >
+    <mat-card-title class="red-text">Register</mat-card-title>
+<mat-card-content>
+<form class="formwidth" [formGroup]="form" (ngSubmit)="onSubmit()" #myForm="ngForm">
+    <table class="fullwidth" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput placeholder="First Name" id="firstname"  formControlName="Firstname"[(ngModel)]="register.Firstname" name="firstname">
+                    <mat-error *ngIf="hasError('Firstname', 'required')">Please enter FirstName</mat-error>
+                    <mat-error *ngIf="hasError('Firstname', 'maxlength')">FirstName should not be exceed 20 characters </mat-error>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput placeholder="Last Name" id="lastname" formControlName="LastName" [(ngModel)]="register.Lastname" name="lastname">
+                    <mat-error *ngIf="hasError('LastName', 'required')">Please enter LastName</mat-error>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+    <table class="fullwidth" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="fullwidth">
+                <mat-select placeholder="Gender" [(ngModel)]="selectedValue" name="food" formControlName="Gender">
+                    <mat-option *ngFor="let gender of genders" [value]="gender.id">
+                      {{gender.gender}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+                 <mat-form-field class="fullwidth">                        
+                        <input matInput [matDatepicker]="dp" placeholder="Select your Date Of Birth" [(ngModel)]="register.Dob" 
+                         formControlName="Dob">
+                        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+                        <mat-datepicker #dp></mat-datepicker>
+                      </mat-form-field> 
+            </td>
+        </tr>
+    </table>
+    <p>
+        <mat-form-field class="fullwidth">
+            <textarea matInput placeholder="EmailId" id="address" formControlName="EmailId"[(ngModel)]="register.EmailId" name="address" (input)="checkUsername(form.get('EmailId').value)"  ></textarea>
+            <mat-error *ngIf="hasError('EmailId','required')">Please inform us your Username</mat-error>
+            <mat-error *ngIf="hasError('EmailId','pattern')">Please enter valid EmailId</mat-error>
+            <div class="text text-success" *ngIf="form.get('EmailId').dirty && !form.get('EmailId').hasError('required') && !form.get('EmailId').hasError('email') && !isEmailExist"><small>You are good to go</small></div>
+            <div class="text text-danger" *ngIf="form.get('EmailId').dirty && !form.get('EmailId').hasError('required') && !form.get('EmailId').hasError('email') && isEmailExist"><small>Someone had already used this email, please enter another one </small></div>                  
+        </mat-form-field>
+    </p>
+    <table class="fullwidth" cellspacing="0">
+        <tr>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type='password' placeholder="Password" formControlName="Password" id="city" [(ngModel)]="register.Password" name="city">
+                    <mat-error *ngIf="hasError('Password', 'required')">Please Enter Password</mat-error>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field class="fullwidth">
+                    <input matInput type='password' placeholder="ConfirmPassword" id="state"  name="state" (keyup)="onConfirmPassword($event)" >
+                    <div class="text text-danger" *ngIf="passwordNotSame"><small>Passwords do not match</small></div>
+                </mat-form-field>
+            </td>
+        </tr>
+    </table>
+
+    <p>
+        <input #fileUpload
+       type="file"
+       class="input_fileupload--hidden"
+       color="primary"
+       (change)="fileEvent($event)">
+
+    </p>
+    <div class="button">
+        <button type="submit" [disabled]=isEmailExist color="primary" mat-button>Submit</button>
+    </div>
+</form>
+</mat-card-content>
+</mat-card>

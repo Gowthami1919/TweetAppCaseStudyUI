@@ -1,0 +1,16 @@
+img {
+    border-radius: 50%;
+    width: 30%;
+    float: right;
+    
+  }
+
+.text{
+    color:  #e91e63!important;
+}
+.text_black{
+    color:black!important;
+}
+.text_grey{
+    color:goldenrod
+}

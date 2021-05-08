@@ -1,0 +1,66 @@
+<!-- <mat-toolbar>
+    <span>
+    <mat-icon>whatshot</mat-icon>
+      TweetUp
+    </span>
+    <span class="fill-remaining-space"></span>
+    <button mat-button (click)="Login()">Login</button>
+    <button mat-button (click)="Register()">Register</button>
+    <button mat-button  [matMenuTriggerFor]="menu">Account</button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onLogout()">Logout</button>
+      </mat-menu>
+    <!--button mat-button routerLink="login" *ngIf="!isLoggedIn; else notLoggedIn">Login</button>
+    <ng-template #notLoggedIn>
+      <button mat-button (click)="onLogout()">Logout</button>
+    </ng-template -->
+    
+  <!-- </mat-toolbar>  -->
+
+
+    <mat-toolbar color="primary" >
+      <mat-toolbar-row>
+        <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="text-icon"><a routerLink="/" ><img src="/assets/images/Tulogo1.jpg"/>TweetUp</a></span>
+        <span class="menu-spacer"></span>
+        <div fxShow="true" fxHide.lt-md>
+          <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+          
+          <a routerLink="/login" mat-button *ngIf="!getUser()">Login</a>
+          <a routerLink="/register" mat-button *ngIf="!getUser()">Register</a>
+          <a routerLink="/afterlogin" mat-button *ngIf="getUser()">Home</a>
+          <a routerLink="/resetpassword" mat-button *ngIf="getUser()">ResetPassword</a>
+          <a routerLink=" " (click)="onLogout()" mat-button *ngIf="getUser()" >LogOut</a>
+    
+          <a *ngIf="getUser()" >Hi, {{getUser().firstname}}</a>
+          <!-- <a href="#" mat-button>Menu Item 3</a>
+          <a href="#" mat-button>Menu Item 4</a>
+          <a href="#" mat-button>Menu Item 5</a>
+          <a href="#" mat-button>Menu Item 6</a> -->
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+ 
+    <mat-sidenav-container fxFlexFill>
+      <mat-sidenav #sidenav>
+        <mat-nav-list>
+          <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+          <a routerLink="/login" mat-button *ngIf="!getUser()">Login</a>
+          <a routerLink="/register" mat-button *ngIf="!getUser()">Register</a>
+          <a routerLink="/afterlogin" mat-button *ngIf="getUser()">Home</a>
+          <a routerLink="/resetpassword" mat-button *ngIf="getUser()">ResetPassword</a>
+          <a routerLink=" " (click)="onLogout()" mat-button *ngIf="getUser()" >LogOut</a>
+          
+          <a *ngIf="getUser()" >Hi, {{getUser().firstname}}</a>
+          <!-- <a href="#" mat-list-item>Menu Item 3</a>
+          <a href="#" mat-list-item>Menu Item 4</a>
+          <a href="#" mat-list-item>Menu Item 5</a>
+          <a href="#"mat-list-item>Menu Item 6</a> -->
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content fxFlexFill><router-outlet></router-outlet></mat-sidenav-content>
+    </mat-sidenav-container>
+  
+  
